@@ -1,0 +1,13 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "monolog/monolog": "^1.23"
+    },
+    "autoload": {
+        "files": ["app/controller/common/function.php"],
+        "psr-4":{
+            "Controller\\":"app/controller/",
+            "Lib\\":"app/lib/"
+        }
+    }
+}
