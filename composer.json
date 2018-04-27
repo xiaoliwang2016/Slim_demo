@@ -1,7 +1,8 @@
 {
     "require": {
         "slim/slim": "^3.0",
-        "monolog/monolog": "^1.23"
+        "monolog/monolog": "^1.23",
+        "respect/validation": "^1.1"
     },
     "autoload": {
         "files": ["app/controller/common/function.php"],

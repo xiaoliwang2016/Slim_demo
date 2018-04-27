@@ -23,6 +23,7 @@ class BaseController {
 	public function __construct(ContainerInterface $ci) {
 		$this->app = $ci;
 		$this->db = \Lib\DB::getIntance($ci->get('settings')['db']);
+		\Lib\Session::start();
 	}
 
 	/**
@@ -63,9 +64,56 @@ class BaseController {
 		}
 		return $data_after;
 	}
-
+	/**
+	 * 增加/修改 一条数据
+	 * @param  [array] $data [需要插入数据]
+	 * @return [array] $data [返回TRUE或者FALSE  并返回插入ID 或者报错信息]
+	 */
 	public function add($data) {
+		//检查非空
+		if ($res = $this->check_null($data)) {
+			return $res;
+		}
+		//过滤字段
+		$data = $this->filter_field($data);
 
+		//如果有主键则为修改
+		if (isset($data[$this->pk])) {
+			$id = $data[$this->pk];
+			return $this->db->update($this->table, $data, array("$this->pk" => $id));
+		}
+		//没有则为新增
+		if ($id = $this->db->insert($this->table, $data)) {
+			return array('result' => true, 'id' => $id);
+		}
+
+		return array('result' => false, 'message' => '插入失败');
+	}
+	/**
+	 * 查询
+	 * @param  mix $where  [查询条件]
+	 * @param  string  $fields
+	 * @param  string  $order
+	 * @param  integer $skip
+	 * @param  integer $limit
+	 * @return [array]          [二维数组]
+	 */
+	public function query($where = 1, $fields = '*', $order = '', $skip = 0, $limit = 100) {
+		return $this->db->selectAll($this->table, $where, $fields, $order, $skip, $limit);
+	}
+	/**
+	 * 软删除
+	 * @param  [type] $id
+	 * @param  string $identifier
+	 * @return [type]
+	 */
+	public function soft_delete($id, $identifier = 'status') {
+		if (is_numeric($id)) {
+			if ($this->db->update($this->table, array("$identifier" => 0), array("$this->pk" => $id))) {
+				return array('result' => true, 'message' => '删除成功');
+			}
+		}
+		return array('result' => false, 'message' => '删除失败，参数错误');
 	}
 
 }

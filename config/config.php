@@ -20,7 +20,7 @@ return array(
 			'port' => '3306',
 			'user' => 'root',
 			'pass' => '123',
-			'db' => 'shop',
+			'db' => 'test',
 		],
 
 	],

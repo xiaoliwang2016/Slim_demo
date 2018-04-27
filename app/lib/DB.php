@@ -106,15 +106,22 @@ class DB {
 		return $list;
 	}
 
-	public function selectAll($table, $where, $fields = '*', $order = '', $skip = 0, $limit = 1000) {
+	public function selectAll($table, $where, $fields = '*', $order = '', $skip = 0, $limit = 100) {
+		$condition = '';
 		if (is_array($where)) {
+			$i = 0;
 			foreach ($where as $key => $val) {
-				if (is_numeric($val)) {
-					$condition = $key . '=' . $val;
-				} else {
-					$condition = $key . '=\"' . $val . '\"';
+				if ($i > 0) {
+					$condition .= ' AND ';
 				}
+				if (is_numeric($val)) {
+					$condition .= '`' . $key . '`' . '=' . $val;
+				} else {
+					$condition .= '`' . $key . '`' . '="' . $val . '"';
+				}
+				$i++;
 			}
+			unset($i);
 		} else {
 			$condition = $where;
 		}
