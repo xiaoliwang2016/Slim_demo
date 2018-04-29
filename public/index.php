@@ -18,8 +18,13 @@ $app->post('/news/create', '\Controller\admin\NewsController:create');
 $app->get('/news/inquire[/{id}]', '\Controller\admin\NewsController:inquire');
 $app->post('/news/modify', '\Controller\admin\NewsController:modify');
 $app->delete('/news/delete/{id}', '\Controller\admin\NewsController:delete');
-
+//规则管理
 $app->post('/access/register', '\Controller\admin\AccessController:register');
+$app->get('/access/inquire', '\Controller\admin\AccessController:inquire');
+//角色管理	
+$app->post('/role/register', '\Controller\admin\RoleController:register');
+$app->post('/role/modify', '\Controller\admin\RoleController:modify');
+$app->get('/role/inquire[/{id}]', '\Controller\admin\RoleController:inquire');
 
 $app->post('/login', '\Controller\admin\LoginController:login');
 

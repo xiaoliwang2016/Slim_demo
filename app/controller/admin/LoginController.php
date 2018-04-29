@@ -3,7 +3,7 @@ namespace Controller\admin;
 
 class LoginController extends BaseController {
 	//表名
-	protected $table = 'eko_member';
+	protected $table = 'slim_member';
 	//主键
 	protected $pk = 'uid';
 	/**

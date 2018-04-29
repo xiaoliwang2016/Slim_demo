@@ -4,7 +4,7 @@ use Respect\Validation\Validator as v;
 
 class NewsController extends AdminController {
 	//表名
-	protected $table = 'eko_news';
+	protected $table = 'slim_news';
 	//主键
 	protected $pk = 'id';
 

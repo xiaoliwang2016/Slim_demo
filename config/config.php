@@ -22,6 +22,15 @@ return array(
 			'pass' => '123',
 			'db' => 'test',
 		],
+		//免权限验证项
+		'auth_free' => [
+			'/user/register',
+			'/user/inquire',
+		],
+		//免登陆操作项
+		'visit_free' => [
+			'/user/register',
+		]
 
 	],
 );
